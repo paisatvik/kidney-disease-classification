@@ -1,0 +1,48 @@
+stages:
+  data_ingestion:
+    cmd: python src/CNN_classifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - config/config.yaml
+      - src/CNN_classifier/pipeline/stage_01_data_ingestion.py
+    outs:
+      - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+
+  prepare_base_model:
+    cmd: python src/CNN_classifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - config/config.yaml
+      - src/CNN_classifier/pipeline/stage_02_prepare_base_model.py
+    params:
+      - IMAGE_SIZE
+      - INCLUDE_TOP
+      - CLASSES
+      - WEIGHTS
+    outs:
+      - artifacts/prepare_base_model
+
+  training:
+    cmd: python src/CNN_classifier/pipeline/stage_03_model_training.py
+    deps:
+      - config/config.yaml
+      - src/CNN_classifier/pipeline/stage_03_model_training.py
+      - artifacts/prepare_base_model
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+      - EPOCHS
+      - LEARNING_RATE
+      - AUGMENTATION
+    outs:
+      - artifacts/training/model.keras
+  evaluation:
+    cmd: python src/CNN_classifier/pipeline/stage_04_evaluation.py
+    deps:
+      - config/config.yaml
+      - src/CNN_classifier/pipeline/stage_04_evaluation.py
+      - artifacts/training/model.keras
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+      - scores.json:
+          cache: false

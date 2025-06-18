@@ -199,3 +199,9 @@ run.py
 
 #artifacts
 artifacts/*
+
+.dvc/*
+
+dvc.lock
+
+.dvcignore
