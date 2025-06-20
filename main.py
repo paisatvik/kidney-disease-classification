@@ -6,7 +6,6 @@ from src.CNN_classifier.pipeline.stage_04_evaluation import ModelEvaluationPipel
 
 
 
-
 STAGE_NAME = "Data Ingestion stage"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 
