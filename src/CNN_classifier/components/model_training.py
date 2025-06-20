@@ -65,7 +65,9 @@ class Training:
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
         model.save(path)
-
+        if not os.path.exists("model"):
+            os.makedirs("model")
+        model.save("model/model.keras")
 
 
     

@@ -201,7 +201,3 @@ run.py
 artifacts/*
 
 .dvc/*
-
-dvc.lock
-
-.dvcignore
