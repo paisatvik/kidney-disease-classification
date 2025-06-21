@@ -68,6 +68,7 @@ jobs:
           echo "Repository: ${{ secrets.ECR_REPOSITORY_NAME }}"
 
   Continuous-Deployment:
+    name: Continuous Deployment
     needs: build-and-push-ecr-image
     runs-on: self-hosted
     steps:
